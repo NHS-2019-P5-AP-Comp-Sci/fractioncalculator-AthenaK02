@@ -15,6 +15,7 @@ public class FracCalc {
     	System.out.print(" two integers or fractions");
     	String eq = userInput.nextLine();
     	System.out.println(produceAnswer(eq));
+    	
         // TODO: Read the input from the user and call produceAnswer with an equation
 
     }
