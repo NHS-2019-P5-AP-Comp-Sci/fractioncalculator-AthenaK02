@@ -1,9 +1,9 @@
 /**
  * @author Mr. Rasmussen
  */
-
+//
 package fracCalc;
-
+//
 import java.util.Scanner;
 
 public class FracCalc {
