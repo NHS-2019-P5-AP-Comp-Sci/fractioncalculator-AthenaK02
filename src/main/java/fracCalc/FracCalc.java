@@ -47,11 +47,9 @@ public class FracCalc {
 		if (whole1 != 0) {
 			sign1 = Math.abs(whole1) / whole1;
 			numerator1 = Math.abs(whole1) * denominator1 + numerator1;
-		} 
-		else if (whole1 == 0 && numerator1 == 0) {
+		} else if (whole1 == 0 && numerator1 == 0) {
 			sign1 = 0;
-		}
-		else {
+		} else {
 			sign1 = Math.abs(numerator1) / numerator1;
 			numerator1 = Math.abs(numerator1);
 		}
@@ -69,15 +67,13 @@ public class FracCalc {
 		if (whole2 != 0) {
 			sign2 = Math.abs(whole2) / whole2;
 			numerator2 = Math.abs(whole2) * denominator2 + numerator2;
-		}
-		else if (whole2 == 0 && numerator2 == 0) {
+		} else if (whole2 == 0 && numerator2 == 0) {
 			sign2 = 0;
-		}
-		else {
+		} else {
 			sign2 = Math.abs(numerator2) / numerator2;
 			numerator2 = Math.abs(numerator2);
 		}
-	
+
 		String answer1 = "";
 		if (mdas.equals("+")) {
 			answer1 = add(numerator1, denominator1, numerator2, denominator2, sign1, sign2);
@@ -91,7 +87,6 @@ public class FracCalc {
 		if (mdas.equals("*")) {
 			answer1 = multiply(numerator1, denominator1, numerator2, denominator2, sign1 * sign2);
 		}
-		
 
 		return answer1;
 	}
@@ -101,27 +96,32 @@ public class FracCalc {
 //multiply den1 & num1 by den2 and den2 & num2 by den1. Then add the resulting nums to get the new num and the new den should be den1*den2
 		int ansa1 = sign1 * numerator1 * denominator2 + sign2 * numerator2 * denominator1;
 		int ansa2 = denominator1 * denominator2;
-		return ansa1 + "/" + ansa2;
+		String anwer = reduce(ansa1, ansa2);
+		return anwer;
 	}
 
-	public static String subtract(int numerator1, int denominator1, int numerator2, int denominator2, int sign1, int sign2) {
+	public static String subtract(int numerator1, int denominator1, int numerator2, int denominator2, int sign1,
+			int sign2) {
 //same as add func but subtract
 		int answ1 = sign1 * numerator1 * denominator2 - sign2 * numerator2 * denominator1;
 		int answ2 = denominator1 * denominator2;
-		return answ1 + "/" + answ2;
+		String fanswer = reduce(answ1, answ2);
+		return fanswer;
 	}
 
 	public static String multiply(int numerator1, int denominator1, int numerator2, int denominator2, int sign) {
 		int num = numerator1 * numerator2 * sign;
 		int den = denominator1 * denominator2;
-		return num + "/" + den;
+		String finanswer = reduce(num, den);
+		return finanswer;
 	}
 
 	public static String divide(int numerator1, int denominator1, int numerator2, int denominator2, int sign) {
 //similar to mult function but switch num2 and den2 
 		int num1 = numerator1 * denominator2 * sign;
 		int num2 = denominator1 * numerator2;
-		return num1 + "/" + num2;
+		String finalanswer = reduce(num1, num2);
+		return finalanswer;
 	}
 
 	public static String wholeNum(String one) {
@@ -152,4 +152,56 @@ public class FracCalc {
 		}
 	}
 
+	public static String reduce(int num, int denom) {
+		int n = Math.abs(num);
+		int d = Math.abs(denom);
+		if (denom < 0 && num > 0) {
+			num = -n;
+			denom = d;
+		}
+		if (num < 0 && denom < 0) {
+			num = n;
+			denom = d;
+		}
+		if (num == 0) {
+			return "0";
+		} else if (denom == 1) {
+			return num + "";
+		} else if (num % denom == 0) {
+			return num / denom + "";
+		}
+		int x = Math.abs(num + denom);
+		while (num % x != 0 || denom % x != 0) {
+			x--;
+		}
+		num /= x;
+		denom /= x;
+		if (n > denom) {
+			int mixed = num / denom;
+			num = num % denom;
+			n = Math.abs(num);
+			d = Math.abs(denom);
+			if (mixed != 0) {
+				if (num < 0) {
+					num = n;
+					return mixed + "_" + num + "/" + denom;
+				} else {
+					return mixed + "_" + num + "/" + denom;
+				}
+			}
+			else {
+				n = Math.abs(num);
+				d = Math.abs(denom);
+				if (num < 0) {
+					return num + "/" + denom;
+				}
+				else {
+					return num + "/" + denom;
+				}
+			}
+		} else {
+			return num + "/" + denom;
+		}
+
+	}
 }
